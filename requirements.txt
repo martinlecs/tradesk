@@ -1,0 +1,15 @@
+certifi==2018.4.16
+chardet==3.0.4
+configparser==3.5.0
+fxcmpy==1.1.27
+idna==2.7
+numpy==1.15.0
+pandas==0.23.3
+PySocks==1.6.8
+python-dateutil==2.7.3
+pytz==2018.5
+requests==2.19.1
+six==1.11.0
+socketIO-client==0.7.2
+urllib3==1.23
+websocket-client==0.48.0
