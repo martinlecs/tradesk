@@ -11,9 +11,10 @@ from tensorflow.python.ops.rnn import dynamic_rnn
 
 
 def get_mid_prices(data):
-    highs = data.loc[:, 'High'].as_matrix()
-    lows = data.loc[:, 'Low'].as_matrix()
-    return (highs + lows) / 2.0
+    return data.loc[:, 'bidclose'].as_matrix()
+    # highs = data.loc[:, 'High'].as_matrix()
+    # lows = data.loc[:, 'Low'].as_matrix()
+    # return (highs + lows) / 2.0
 
 
 def split_data(data):
@@ -28,15 +29,15 @@ def scale_data(training_data, testing_data):
 
     scaler = MinMaxScaler()
 
-    for i in range(0, 10000, window):
+    for i in range(0, len(training_data), window):
         scaler.fit(training_data[i:i + window, :])
         training_data[i:i + window, :] = scaler.transform(training_data[i:i + window, :])
 
-    i = max(range(0, 10000, window))
-
-    # Not forgetting to scale the left-over data
-    scaler.fit(training_data[(i + window):, :])
-    training_data[(i + window):, :] = scaler.transform(training_data[(i + window):, :])
+    # i = max(range(0, 10000, window))
+    #
+    # # Not forgetting to scale the left-over data
+    # scaler.fit(training_data[(i + window):, :])
+    # training_data[(i + window):, :] = scaler.transform(training_data[(i + window):, :])
 
     # Normalize the testing data with respect to the training data as the testing data is "unseen" at this stage
     return training_data.reshape(-1), scaler.transform(testing_data).reshape(-1)
@@ -199,7 +200,14 @@ def machine_learn(train_data, mid_stock_prices):
     # Store predictions here
     predictions_over_time = []
 
-    session = tf.InteractiveSession()
+    # Comment out if using CPU only (gpu mode)
+    config = tf.ConfigProto()
+    config.gpu_options.per_process_gpu_memory_fraction = 0.8
+    config.gpu_options.allocator_type = 'BFC'
+    session = tf.Session(config=config)
+
+    #Comment out below if using GPU (train in cpu mode)
+    # session = tf.Session()
 
     tf.global_variables_initializer().run()
 

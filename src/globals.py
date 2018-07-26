@@ -1,10 +1,10 @@
 # Hyper-parameters stored here
 
 # Size of the training data. This is approximately 90% of the total data provided
-train = 11000
+train = 8000
 
 # Window size for batch normalization
-window = 2500
+window = 2000
 
 # Exponential moving average parameter for input smoothing
 gamma = 0.1
