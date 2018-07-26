@@ -2,7 +2,8 @@ import os
 import fxcmpy
 
 FILE_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-OUTPUT_LOC = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "output")
+OUTPUT_LOC = r'/home/bennydai/PythonThingo/output/'
+#os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "output")
 
 class TradingAPI:
 
