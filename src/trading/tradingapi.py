@@ -2,12 +2,13 @@ import os
 import fxcmpy
 
 FILE_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+OUTPUT_LOC = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "output")
 
 class TradingAPI:
 
     def __init__(self):
         self.con = fxcmpy.fxcmpy(config_file=os.path.join(FILE_LOC, "fxcm.cfg"), server="demo")
-        print("Connected to FXCM Server\n")
+        print("Connected to FXCM Server")
         self.instruments = []
 
     def get_instruments(self):
@@ -84,8 +85,8 @@ class TradingAPI:
     def batch_generate_csv(self):
         print("Generating csv files...")
         self.get_account_snapshot().to_csv(os.path.join(FILE_LOC, "account_snapshot.csv"), index=False)
-        self.get_orders_snapshot().to_csv(os.path.join(FILE_LOC, "account_snapshot.csv"), index=False)
-        self.get_open_positions_snapshot().to_csv(os.path.join(FILE_LOC, "account_snapshot.csv"), index=False)
-        self.get_closed_positions_snapshot().to_csv(os.path.join(FILE_LOC, "account_snapshot.csv"), index=False)
+        self.get_orders_snapshot().to_csv(os.path.join(FILE_LOC, "orders_snapshot.csv"), index=False)
+        self.get_open_positions_snapshot().to_csv(os.path.join(FILE_LOC, "open_snapshot.csv"), index=False)
+        self.get_closed_positions_snapshot().to_csv(os.path.join(FILE_LOC, "close_snapshot.csv"), index=False)
         print("CSV generation complete.")
 
