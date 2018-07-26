@@ -73,11 +73,21 @@ class TradingAPI:
     def close_all_trade(self):
         pass
 
+    #Returns a summary of the current data of the Account model
     def get_account_details(self):
         return self.con.get_accounts_summary()
 
-    def get_open_positions(self):
+    def get_account_snapshot(self):
+        return self.con.get_accounts()
+
+    def get_orders_snapshot(self):
+        return self.con.get_orders()
+
+    def get_open_positions_snapshot(self):
         return self.con.get_open_positions()
+
+    def get_closed_positions_snapshot(self):
+        return self.con.get_closed_positions()
 
     def shutdown(self):
         self.con.close()
