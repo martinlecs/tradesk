@@ -10,3 +10,4 @@ from src.tradingapi import *
 def test_get_instruments():
     api = TradingAPI()
     assert len(api.get_instruments()) == 61
+

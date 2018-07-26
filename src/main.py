@@ -11,8 +11,21 @@ if __name__ == "__main__":
 
     api = TradingAPI()
 
-    #data = api.get_historical_data('EUR/USD', period='m1', number=11000)
-    data = api.get_instruments()
+    # data = api.get_historical_data('EUR/USD', period='m1', number=10000)
+    # print(data)
+    #
+    # data = api.get_instruments()
+    #
+    # print(data)
+
+    tr = Trader(api)
+
+    series = [1.2, 1.3, 1.4, 1.5, 1.6]
+
+    tr.printSeries(series)
+    tr.decide(series)
+
+
 
     #
     # # We work with the average of the highs and low of the stock price.

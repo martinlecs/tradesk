@@ -28,7 +28,6 @@ class TradingAPI:
         """
         df = self.con.get_candles(investment, period=period, number=number)
         df['date'] = df.index
-        df.reset_index()
         df = df[['date', 'bidclose']]
         return df
 
