@@ -2,12 +2,13 @@ import os
 import fxcmpy
 
 FILE_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+OUTPUT_LOC = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "output")
 
 class TradingAPI:
 
     def __init__(self):
         self.con = fxcmpy.fxcmpy(config_file=os.path.join(FILE_LOC, "fxcm.cfg"), server="demo")
-        print("Connected to FXCM Server\n")
+        print("Connected to FXCM Server")
         self.instruments = []
 
     def get_instruments(self):
@@ -72,22 +73,28 @@ class TradingAPI:
     def close_all_trade(self):
         pass
 
-    #Returns a summary of the current data of the Account model
-    def get_account_details(self):
-        return self.con.get_accounts_summary()
-
     def get_account_snapshot(self):
-        return self.con.get_accounts()
+        return self.con.get_accounts_summary()
 
     def get_orders_snapshot(self):
         return self.con.get_orders()
 
     def get_open_positions_snapshot(self):
-        return self.con.get_open_positions()
+        return self.con.get_open_positions_summary()
 
     def get_closed_positions_snapshot(self):
-        return self.con.get_closed_positions()
+        return self.con.get_closed_positions_summary()
 
     def shutdown(self):
         self.con.close()
 
+    def batch_generate_csv(self):
+        print("Generating csv files...")
+        self.get_account_snapshot().to_csv(os.path.join(OUTPUT_LOC, "account_snapshot.csv"), index=False)
+        self.get_orders_snapshot().to_csv(os.path.join(OUTPUT_LOC, "orders_snapshot.csv"), index=False)
+        self.get_open_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "open_snapshot.csv"), index=False)
+        self.get_closed_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
+        print("CSV generation complete.")
+
+    def has_money(self):
+        return True if self.get_account_snapshot()['UsableMargin'] >= 450 else False
