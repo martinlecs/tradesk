@@ -96,3 +96,5 @@ class TradingAPI:
         self.get_closed_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
         print("CSV generation complete.")
 
+    def has_money(self):
+        return True if self.get_account_snapshot()['UsableMargin'] >= 450 else False
