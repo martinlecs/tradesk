@@ -5,7 +5,7 @@ import datetime as dt
 import json
 import fxcmpy
 
-FILE_LOC = os.path.dirname(os.path.dirname(__file__))
+FILE_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 class TradingAPI:
 
@@ -65,7 +65,8 @@ class TradingAPI:
         return self.con.create_market_sell_order(investment, size)
 
     def open_trade(self, investment, size, stop, limit):
-        order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, time_in_force="GTC")
+        order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, time_in_force="GTC",
+                                       is_buy=True, order_type="AtMarket")
         return order_id
 
     def close_trade(self, investment, size, stop, limit):

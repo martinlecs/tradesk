@@ -1,11 +1,13 @@
 # from src.auxilliaries import *
 # import tensorflow as tf
-from src.tradingapi import TradingAPI
-from src.trader import Trader
-import os
-import time
+from src.trading.tradingapi import TradingAPI
+from src.trading.trader import Trader
+import random
 
 TRADING_INTERVAL = 5
+
+def random_floats(low, high, size):
+    return [random.uniform(low, high) for _ in range(size)]
 
 if __name__ == "__main__":
 
@@ -20,10 +22,11 @@ if __name__ == "__main__":
 
     tr = Trader(api)
 
-    series = [1.2, 1.3, 1.4, 1.5, 1.6]
-
-    tr.printSeries(series)
-    tr.decide(series)
+    series = random_floats(1, 3, 20)
+    pos = api.get_open_positions()
+    print(pos)
+    # tr.printSeries(series)
+    # print(tr.decide("EUR/USD", series))
 
 
 

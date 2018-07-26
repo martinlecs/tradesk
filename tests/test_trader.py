@@ -1,5 +1,4 @@
-from src.tradingapi import *
-from src.trader import *
+from src.trading.trader import *
 
 # Example
 # def inc(x):
