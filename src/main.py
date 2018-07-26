@@ -5,13 +5,16 @@ from src.trader import Trader
 import os
 import time
 
+TRADING_INTERVAL = 5
+
 if __name__ == "__main__":
 
     api = TradingAPI()
 
-    #TODO: Check with Benny for the format of this data
-    data = api.get_historical_data()
+    #data = api.get_historical_data('EUR/USD', period='m1', number=11000)
+    data = api.get_instruments()
 
+    #
     # # We work with the average of the highs and low of the stock price.
     # mids = get_mid_prices(data)
     #
@@ -44,17 +47,20 @@ if __name__ == "__main__":
     #
     # tr = Trader(api)
     # api.subscribe("EUR/USD")
-    # time.sleep(30)
+    # time.sleep(TRADING_INTERVAL)
     #
     # while True:
     #     live_stream_data = api.get_live_data("EUR/USD", 100)
     #     #predictions = get_predictions(testing[:sequence_size])
     #
-    #     Trader.decide(predictions)
+    #     tr.decide(predictions)
+    #
+    #     #send data to SSH
     #
     #     print(live_stream_data)
-    #     time.sleep(30)
+    #     time.sleep(TRADING_INTERVAL)
 
+    api.shutdown()
 
 
         # TODO: The predictions in the csv file could be picked up by Splunk. A live demonstration of this during

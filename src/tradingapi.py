@@ -5,10 +5,13 @@ import datetime as dt
 import json
 import fxcmpy
 
+FILE_LOC = os.path.dirname(os.path.dirname(__file__))
+
 class TradingAPI:
 
     def __init__(self):
-        self.con = fxcmpy.fxcmpy(config_file=os.path.join(os.path.dirname(os.path.dirname(__file__)), "fxcm.cfg"), server="demo")
+        self.con = fxcmpy.fxcmpy(config_file=os.path.join(FILE_LOC, "fxcm.cfg"), server="demo")
+        print("Connected to FXCM Server\n")
         self.instruments = []
 
     def get_instruments(self):
@@ -19,12 +22,14 @@ class TradingAPI:
             self.instruments = self.con.get_instruments()
         return self.instruments
 
-    def get_historical_data(self):
+    def get_historical_data(self, investment, period, number):
         """
         :return: Pandas DataFrame
         """
-        df = self.con.get_candles('EUR/USD', period='m1', number=250)
-        #TODO: do some pandas processing here
+        df = self.con.get_candles(investment, period=period, number=number)
+        df['date'] = df.index
+        df.reset_index()
+        df = df[['date', 'bidclose']]
         return df
 
     def subscribe(self, investment):
@@ -73,4 +78,10 @@ class TradingAPI:
 
     def get_account_details(self):
         return self.con.get_accounts_summary()
+
+    def get_open_positions(self):
+        return self.con.get_open_positions()
+
+    def shutdown(self):
+        self.con.close()
 
