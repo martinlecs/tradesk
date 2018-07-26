@@ -32,7 +32,7 @@ class Trader:
                 self.api.sell_at_market_price(instrument, SIZE)
                 PHASE = "sell"
 
-        if self.api.get_open_positions().empty():
+        if self.api.get_open_positions().empty:
             # we got open positions
             df = self.api.get_open_positions()
 
