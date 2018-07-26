@@ -1,4 +1,4 @@
-from src.tradingapi import *
+from tradingapi import *
 
 
 class Trader:

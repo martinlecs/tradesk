@@ -1,7 +1,7 @@
-from src.auxilliaries import *
+from auxilliaries import *
 import tensorflow as tf
-from src.tradingapi import TradingAPI
-from src.trader import Trader
+from tradingapi import TradingAPI
+from trader import Trader
 import os
 import time
 
@@ -11,7 +11,6 @@ if __name__ == "__main__":
 
     #TODO: Check with Benny for the format of this data
     data = api.get_historical_data()
-    print(data)
 
     # We work with the average of the highs and low of the stock price.
     mids = get_mid_prices(data)

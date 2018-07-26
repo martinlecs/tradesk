@@ -19,11 +19,11 @@ class TradingAPI:
             self.instruments = self.con.get_instruments()
         return self.instruments
 
-    def get_historical_data(self):
+    def get_historical_data(self, number):
         """
         :return: Pandas DataFrame
         """
-        df = self.con.get_candles('EUR/USD', period='m1', number=10000)
+        df = self.con.get_candles('EUR/USD', period='m1', number=number)
         #TODO: do some pandas processing here
         return df
 
