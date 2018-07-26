@@ -1,17 +1,43 @@
 # from src.auxilliaries import *
 # import tensorflow as tf
-from src.tradingapi import TradingAPI
-from src.trader import Trader
+from src.trading.tradingapi import TradingAPI
+from src.trading.trader import Trader
+import random
 import os
-import time
+
+TRADING_INTERVAL = 5
+OUTPUT_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
+def random_floats(low, high, size):
+    return [random.uniform(low, high) for _ in range(size)]
 
 if __name__ == "__main__":
 
     api = TradingAPI()
 
-    #TODO: Check with Benny for the format of this data
-    data = api.get_historical_data()
+    # data = api.get_historical_data('EUR/USD', period='m1', number=10000)
+    # print(data)
+    #
+    # data = api.get_instruments()
+    #
+    # print(data)
 
+    tr = Trader(api)
+
+    series = random_floats(1, 3, 20)
+    pos = api.get_open_positions()
+    print(pos)
+    # tr.printSeries(series)
+    # print(tr.decide("EUR/USD", series))
+
+
+    # TODO: Get data to Lindsay
+
+    df = df1.append([df2, df3])
+    df.to_csv(os.path.join(OUTPUT_LOC, 'out.csv'), index=False)
+
+
+    #
     # # We work with the average of the highs and low of the stock price.
     # mids = get_mid_prices(data)
     #
@@ -44,20 +70,17 @@ if __name__ == "__main__":
     #
     # tr = Trader(api)
     # api.subscribe("EUR/USD")
-    # time.sleep(30)
+    # time.sleep(TRADING_INTERVAL)
     #
     # while True:
     #     live_stream_data = api.get_live_data("EUR/USD", 100)
     #     #predictions = get_predictions(testing[:sequence_size])
     #
-    #     Trader.decide(predictions)
+    #     tr.decide(predictions)
+    #
+    #     #send data to SSH
     #
     #     print(live_stream_data)
-    #     time.sleep(30)
+    #     time.sleep(TRADING_INTERVAL)
 
-
-
-        # TODO: The predictions in the csv file could be picked up by Splunk. A live demonstration of this during
-        # TODO: the presentation would be ideal
-
-
+    api.shutdown()
