@@ -36,10 +36,26 @@ epochs = 1
 # Sample of points to evaluate model performance
 testing_range = 1000
 
+# Number of values to predict in the future
+number_of_future = 6
+
 # Directory name to store the best performing model
 model_directory_path = 'Model'
 
 # File name of csv containing predictions
-csv_file_name = 'predictions.csv'
+csv_file_name = '/home/bennydai/PythonThingo/output/predictions.csv'
 
+index_directory = '/home/bennydai/Applications/predictions.csv'
+
+# Remote Computer Directory
+put_address = '/Users/lindsaypage/Desktop/predictions.csv'
+
+# SSH details
+server = '172.20.10.9'
+
+port = 22
+
+username = 'lindsaypage'
+
+password = 'l16220913'
 

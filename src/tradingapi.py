@@ -23,7 +23,7 @@ class TradingAPI:
         """
         :return: Pandas DataFrame
         """
-        df = self.con.get_candles('EUR/USD', period='m1', number=number)
+        df = self.con.get_candles('EUR/USD', period='m5', number=number)
         #TODO: do some pandas processing here
         return df
 

@@ -10,6 +10,10 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.contrib import rnn
 from tensorflow.contrib import layers
 from tensorflow.python.ops.rnn import dynamic_rnn
+#import splunklib.client as client
+import subprocess
+from paramiko import SSHClient
+from scp import SCPClient
 
 
 def get_mid_prices(data):
@@ -415,7 +419,17 @@ def load():
 def get_predictions(live_data):
 
     # Initialize a Tensor-flow session in order to load the model
-    session = tf.Session()
+
+    # Comment out if using GPU
+
+    config = tf.ConfigProto()
+    config.gpu_options.per_process_gpu_memory_fraction = 0.7
+    config.gpu_options.allocator_type = 'BFC'
+    session = tf.Session(config=config)
+
+    #Comment out below if using CPU only
+    # session = tf.Session()
+
     restorer = tf.train.import_meta_graph(model_directory_path + '.meta')
     restorer.restore(session, tf.train.latest_checkpoint('./'))
 
@@ -437,7 +451,7 @@ def get_predictions(live_data):
 
     predictions = list()
 
-    for _ in range(sequence_size):
+    for _ in range(number_of_future): 
         # Make predictions for this many steps where each prediction uses the previous prediction as the input
         pred = session.run(sample_prediction, feed_dict=feed_dictionary)
 
@@ -446,21 +460,29 @@ def get_predictions(live_data):
 
         feed_dictionary[sample_inputs] = np.asarray(pred).reshape(-1, 1)
 
+    session.close()
     # Call the reset_state operation at this stage
     return predictions
     pass
 
 
-def output_to_csv(predictions, visualize=True):
-    with open(csv_file_name, mode='w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+def output_to_csv(predictions, visualize=False):
+    with open(csv_file_name, mode='w') as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(["Value", 'chicken'])
         for prediction in predictions:
+                writer.writerow([prediction, 'chicken'])
+
             # The argument to writerow must be an iterable type
-            writer.writerow([prediction])
+            # writer.writerow([prediction])
+
+    csvfile.close()
+    # index_name.upload(index_directory)
+
 
     # Finally plot the predictions instead of manually looking through the array prior to making financial decision
     if visualize:
-        plt.plot(np.arange(start=0, stop=sequence_size, step=1), predictions, color='r')
+        plt.plot(np.arange(start=0, stop=number_of_future, step=1), predictions, color='r')
         plt.title('Future predictions', fontsize=18)
         plt.xlabel('Time', fontsize=18)
         plt.ylabel('Predictions', fontsize=18)
@@ -472,6 +494,31 @@ def output_to_csv(predictions, visualize=True):
 
     # Not sure if resetting the cell states is necessary at this stage as we are re-loading the model every-time we make
     # a series of predictions. Investigate this later. (Comment for Marwan)
+
+def output_to_txt(predictions):
+    baconFile = open('predictions.xml', 'w')
+    baconFile.write('Value\n')
+    for num in range(len(predictions)):
+        baconFile.write(str(predictions[num]))
+        baconFile.write('\n')
+    baconFile.close()
+
+
+def create_client():
+    host = "localhost"
+    port = 8000
+    username = admin
+    password = "Whereisthelove54!"
+
+    service = client.connect(host = host, port = port, username = username, password = password)
+
+    for app in service.apps:
+        print(app.name)
+
+    index = service.indexes.create("index")
+    return index
+
+    
 
 
 
