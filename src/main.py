@@ -6,7 +6,6 @@ import random
 import os
 
 TRADING_INTERVAL = 5
-OUTPUT_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def random_floats(low, high, size):
     return [random.uniform(low, high) for _ in range(size)]
@@ -25,19 +24,13 @@ if __name__ == "__main__":
     tr = Trader(api)
 
     series = random_floats(1, 3, 20)
-    pos = api.get_open_positions()
-    print(pos)
     # tr.printSeries(series)
     # print(tr.decide("EUR/USD", series))
 
 
     # TODO: Get data to Lindsay
+    api.batch_generate_csv()
 
-    df = df1.append([df2, df3])
-    df.to_csv(os.path.join(OUTPUT_LOC, 'out.csv'), index=False)
-
-
-    #
     # # We work with the average of the highs and low of the stock price.
     # mids = get_mid_prices(data)
     #
