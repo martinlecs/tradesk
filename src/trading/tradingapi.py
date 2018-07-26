@@ -94,9 +94,9 @@ class TradingAPI:
 
     def batch_generate_csv(self):
         print("Generating csv files...")
-        self.get_account_snapshot().to_csv(os.path.join(FILE_LOC, "account_snapshot.csv"), index=False)
-        self.get_orders_snapshot().to_csv(os.path.join(FILE_LOC, "orders_snapshot.csv"), index=False)
-        self.get_open_positions_snapshot().to_csv(os.path.join(FILE_LOC, "open_snapshot.csv"), index=False)
-        self.get_closed_positions_snapshot().to_csv(os.path.join(FILE_LOC, "close_snapshot.csv"), index=False)
+        self.get_account_snapshot().to_csv(os.path.join(OUTPUT_LOC, "account_snapshot.csv"), index=False)
+        self.get_orders_snapshot().to_csv(os.path.join(OUTPUT_LOC, "orders_snapshot.csv"), index=False)
+        self.get_open_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "open_snapshot.csv"), index=False)
+        self.get_closed_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
         print("CSV generation complete.")
 
