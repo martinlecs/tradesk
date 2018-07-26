@@ -1,14 +1,13 @@
 import os
-import json
-import pandas as pd
-import datetime as dt
-import json
 import fxcmpy
+
+FILE_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 class TradingAPI:
 
     def __init__(self):
-        self.con = fxcmpy.fxcmpy(config_file=os.path.join(os.path.dirname(os.path.dirname(__file__)), "fxcm.cfg"), server="demo")
+        self.con = fxcmpy.fxcmpy(config_file=os.path.join(FILE_LOC, "fxcm.cfg"), server="demo")
+        print("Connected to FXCM Server\n")
         self.instruments = []
 
     def get_instruments(self):
@@ -19,12 +18,13 @@ class TradingAPI:
             self.instruments = self.con.get_instruments()
         return self.instruments
 
-    def get_historical_data(self, number):
+    def get_historical_data(self, investment, period, number):
         """
         :return: Pandas DataFrame
         """
-        df = self.con.get_candles('EUR/USD', period='m5', number=number)
-        #TODO: do some pandas processing here
+        df = self.con.get_candles(investment, period=period, number=number)
+        df['date'] = df.index
+        df = df[['date', 'bidclose']]
         return df
 
     def subscribe(self, investment):
@@ -61,7 +61,8 @@ class TradingAPI:
         return self.con.create_market_sell_order(investment, size)
 
     def open_trade(self, investment, size, stop, limit):
-        order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, time_in_force="GTC")
+        order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, time_in_force="GTC",
+                                       is_buy=True, order_type="AtMarket")
         return order_id
 
     def close_trade(self, investment, size, stop, limit):
@@ -71,6 +72,22 @@ class TradingAPI:
     def close_all_trade(self):
         pass
 
+    #Returns a summary of the current data of the Account model
     def get_account_details(self):
         return self.con.get_accounts_summary()
+
+    def get_account_snapshot(self):
+        return self.con.get_accounts()
+
+    def get_orders_snapshot(self):
+        return self.con.get_orders()
+
+    def get_open_positions_snapshot(self):
+        return self.con.get_open_positions()
+
+    def get_closed_positions_snapshot(self):
+        return self.con.get_closed_positions()
+
+    def shutdown(self):
+        self.con.close()
 

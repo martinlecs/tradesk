@@ -1,13 +1,17 @@
-from auxilliaries import *
+from src.auxilliaries import *
 import tensorflow as tf
-from tradingapi import TradingAPI
-from trader import Trader
+from src.trading.tradingapi import TradingAPI
+from src.trading.trader import Trader
+import random
 import os
-import time
+
+TRADING_INTERVAL = 5
+OUTPUT_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
+def random_floats(low, high, size):
+    return [random.uniform(low, high) for _ in range(size)]
 
 if __name__ == "__main__":
-
-    api = TradingAPI()
 
     ssh = SSHClient()
     ssh.load_system_host_keys()
@@ -61,27 +65,6 @@ if __name__ == "__main__":
             scp.put(csv_file_name, put_address)
         print ('CSV HAS SENT YO!!!!')
 
-
         # save_data(predictions, testing_losses, x_axis_values)
-    #
-    # else:
-    #
-    # tr = Trader(api)
-    # api.subscribe("EUR/USD")
-    # time.sleep(30)
-    #
-    # while True:
-    #     live_stream_data = api.get_live_data("EUR/USD", 100)
-    #     #predictions = get_predictions(testing[:sequence_size])
-    #
-    #     Trader.decide(predictions)
-    #
-    #     print(live_stream_data)
-    #     time.sleep(30)
-
-
-
-        # TODO: The predictions in the csv file could be picked up by Splunk. A live demonstration of this during
-        # TODO: the presentation would be ideal
 
 
