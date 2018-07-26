@@ -6,7 +6,6 @@ import random
 import os
 
 TRADING_INTERVAL = 5
-OUTPUT_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def random_floats(low, high, size):
     return [random.uniform(low, high) for _ in range(size)]
@@ -66,5 +65,4 @@ if __name__ == "__main__":
         print ('CSV HAS SENT YO!!!!')
 
         # save_data(predictions, testing_losses, x_axis_values)
-
 
