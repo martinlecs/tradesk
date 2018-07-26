@@ -16,6 +16,8 @@ class Trader:
         peak_value = maxima if maxima > minima else minima
         projected = abs(series[0] - peak_value) / peak_value * 100
 
+        #SIZE, STOP, LIMIT decided here somewhere
+
         PHASE  = ""
 
         if not trade: #self.api.get_open_positions():
