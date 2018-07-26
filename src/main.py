@@ -1,9 +1,10 @@
-from src.auxilliaries import *
+from auxilliaries import *
 import tensorflow as tf
-from src.trading.tradingapi import TradingAPI
-from src.trading.trader import Trader
+from tradingapi import TradingAPI
+from trader import Trader
 import random
 import os
+import time
 
 TRADING_INTERVAL = 5
 
@@ -12,16 +13,18 @@ def random_floats(low, high, size):
 
 if __name__ == "__main__":
 
-    ssh = SSHClient()
-    ssh.load_system_host_keys()
-    ssh.connect(server, port, username, password)
+    # ssh = SSHClient()
+    # ssh.load_system_host_keys()
+    # ssh.connect(server, port, username, password)
 
     # index = create_client()
 
+    api = TradingAPI()
+    tr = Trader(api)
+
     while True:
 
-        #TODO: Check with Benny for the format of this data
-        data = api.get_historical_data(number=10000)
+        data = api.get_historical_data('EUR/USD', 'm5', 10000)
 
         # We work with the average of the highs and low of the stock price.
         mids = get_mid_prices(data)
@@ -54,15 +57,18 @@ if __name__ == "__main__":
 
         #time.sleep(5 - (finish_time - start_time))
 
-        previous_data = get_mid_prices((api.get_historical_data(number=sequence_size)))
+        previous_data = get_mid_prices((api.get_historical_data('EUR/USD', 'm5', number=sequence_size)))
         preds = (get_predictions(previous_data))
 
+        tr.decide(preds)
+
         output_to_csv(preds, time.time())
+        api.batch_generate_csv()
 
         #scp bash function in python
-        with SCPClient(ssh.get_transport()) as scp:
-            scp.put(csv_file_name, put_address)
-        print ('CSV HAS SENT YO!!!!')
+        # with SCPClient(ssh.get_transport()) as scp:
+        #     scp.put(csv_file_name, put_address)
+        # print ('CSV HAS SENT YO!!!!')
 
         # save_data(predictions, testing_losses, x_axis_values)
 

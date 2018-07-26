@@ -7,7 +7,7 @@ OUTPUT_LOC = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file
 class TradingAPI:
 
     def __init__(self):
-        self.con = fxcmpy.fxcmpy(config_file=os.path.join(FILE_LOC, "fxcm.cfg"), server="demo")
+        self.con = fxcmpy.fxcmpy(config_file=os.path.join("/home/bennydai/PythonThingo/","fxcm.cfg"), server="demo")
         print("Connected to FXCM Server")
         self.instruments = []
 

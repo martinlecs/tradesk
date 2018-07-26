@@ -2,7 +2,7 @@
 import csv
 import math
 import numpy as np
-from src.neural.globals import *
+from globals import *
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from DataGenerator import DataGenerator

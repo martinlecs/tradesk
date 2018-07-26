@@ -1,2 +1,3 @@
 |ERROR|2018-07-26 10:51:57,856|Error in get_candles: Illegal param. number: 11000
 |ERROR|2018-07-26 10:54:05,036|Error in get_candles: Illegal param. number: 11000
+|ERROR|2018-07-26 20:33:02,279|Error in get_candles: Illegal param. number: 10000
