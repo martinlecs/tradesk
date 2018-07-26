@@ -60,7 +60,7 @@ if __name__ == "__main__":
         previous_data = get_mid_prices((api.get_historical_data('EUR/USD', 'm5', number=sequence_size)))
         preds = (get_predictions(previous_data))
 
-        tr.decide(preds)
+        tr.decide('EUR/USD', preds)
 
         output_to_csv(preds, time.time())
         api.batch_generate_csv()
