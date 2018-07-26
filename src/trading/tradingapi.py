@@ -1,8 +1,4 @@
 import os
-import json
-import pandas as pd
-import datetime as dt
-import json
 import fxcmpy
 
 FILE_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))

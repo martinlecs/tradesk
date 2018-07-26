@@ -3,8 +3,10 @@
 from src.trading.tradingapi import TradingAPI
 from src.trading.trader import Trader
 import random
+import os
 
 TRADING_INTERVAL = 5
+OUTPUT_LOC = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def random_floats(low, high, size):
     return [random.uniform(low, high) for _ in range(size)]
@@ -28,6 +30,11 @@ if __name__ == "__main__":
     # tr.printSeries(series)
     # print(tr.decide("EUR/USD", series))
 
+
+    # TODO: Get data to Lindsay
+
+    df = df1.append([df2, df3])
+    df.to_csv(os.path.join(OUTPUT_LOC, 'out.csv'), index=False)
 
 
     #
@@ -77,9 +84,3 @@ if __name__ == "__main__":
     #     time.sleep(TRADING_INTERVAL)
 
     api.shutdown()
-
-
-        # TODO: The predictions in the csv file could be picked up by Splunk. A live demonstration of this during
-        # TODO: the presentation would be ideal
-
-
