@@ -22,7 +22,6 @@ def get_mid_prices(data):
     # lows = data.loc[:, 'Low'].as_matrix()
     # return (highs + lows) / 2.0
 
-
 def split_data(data):
     return data[:train], data[train:]
 
@@ -466,12 +465,17 @@ def get_predictions(live_data):
     pass
 
 
-def output_to_csv(predictions, visualize=False):
+def output_to_csv(predictions, time, visualize=False):
     with open(csv_file_name, mode='w') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(["Value", 'chicken'])
-        for prediction in predictions:
-                writer.writerow([prediction, 'chicken'])
+        # for [time, predict]
+        writer.writerow(["Time", "1st Prediction", "2nd Prediction", "3rd Prediction", "4th Prediction", "5th Prediction", "6th Prediction"])
+        #writer.writerow(["Time"] + )
+        writer.writerow([time] + predictions)
+
+        # writer.writerow(["Value", 'chicken'])
+        # for prediction in predictions:
+        #         writer.writerow([prediction, 'chicken'])
 
             # The argument to writerow must be an iterable type
             # writer.writerow([prediction])
@@ -495,13 +499,13 @@ def output_to_csv(predictions, visualize=False):
     # Not sure if resetting the cell states is necessary at this stage as we are re-loading the model every-time we make
     # a series of predictions. Investigate this later. (Comment for Marwan)
 
-def output_to_txt(predictions):
-    baconFile = open('predictions.xml', 'w')
-    baconFile.write('Value\n')
-    for num in range(len(predictions)):
-        baconFile.write(str(predictions[num]))
-        baconFile.write('\n')
-    baconFile.close()
+# def output_to_txt(predictions):
+#     baconFile = open('predictions.xml', 'w')
+#     baconFile.write('Value\n')
+#     for num in range(len(predictions)):
+#         baconFile.write(str(predictions[num]))
+#         baconFile.write('\n')
+#     baconFile.close()
 
 
 def create_client():
@@ -517,6 +521,7 @@ def create_client():
 
     index = service.indexes.create("index")
     return index
+
 
     
 

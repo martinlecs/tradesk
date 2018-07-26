@@ -54,7 +54,7 @@ if __name__ == "__main__":
         previous_data = get_mid_prices((api.get_historical_data(number=sequence_size)))
         preds = (get_predictions(previous_data))
 
-        output_to_csv(preds)
+        output_to_csv(preds, time.time())
 
         #scp bash function in python
         with SCPClient(ssh.get_transport()) as scp:
