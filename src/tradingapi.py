@@ -85,6 +85,9 @@ class TradingAPI:
     def get_closed_positions_snapshot(self):
         return self.con.get_closed_positions_summary()
 
+    def get_open_positions(self):
+        return self.con.get_open_positions()
+
     def shutdown(self):
         self.con.close()
 
