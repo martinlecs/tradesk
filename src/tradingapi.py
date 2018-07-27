@@ -89,6 +89,9 @@ class TradingAPI:
     def get_open_positions(self):
         return self.con.get_open_positions()
 
+    def get_close_positions(self):
+        return self.con.get_closed_positions()
+
     def get_offer_snapshot(self):
         return self.con.get_offers()
 
@@ -99,8 +102,8 @@ class TradingAPI:
         print("Generating csv files...")
         self.get_account_snapshot().to_csv(os.path.join(OUTPUT_LOC, "account_snapshot.csv"), index=False)
         self.get_orders_snapshot().to_csv(os.path.join(OUTPUT_LOC, "orders_snapshot.csv"), index=False)
-        self.get_open_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "open_snapshot.csv"), index=False)
-        self.get_closed_positions_snapshot().to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
+        self.get_open_positions().to_csv(os.path.join(OUTPUT_LOC, "open_snapshot.csv"), index=False)
+        self.get_closed_positions.to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
         print("CSV generation complete.")
 
     def has_money(self):
