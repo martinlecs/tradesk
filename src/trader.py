@@ -4,7 +4,7 @@ CLOSE_THRESHOLD = 0.02  # 2%
 PROJECTED_THRESHOLD = 5
 SIZE = 100
 STOP = 10
-LIMIT = 10
+LIMIT = 0
 
 class Trader:
 
@@ -27,7 +27,7 @@ class Trader:
                 open_orders[order] = projected
             else:
                 # sell at market value
-                self.api.open_trade(instrument, SIZE, STOP, LIMIT, False)
+                self.api.open_trade(instrument, SIZE, -STOP, LIMIT, False)
 
         if not self.api.get_open_positions().empty:
             df = self.api.get_open_positions()
