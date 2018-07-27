@@ -62,14 +62,14 @@ class TradingAPI:
     def sell_at_market_price(self, investment, size):
         return self.con.create_market_sell_order(investment, size)
 
-    def open_trade(self, investment, size, stop, limit):
+    def open_trade(self, investment, size, stop, limit, isBuy):
         order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, time_in_force="GTC",
-                                       is_buy=True, order_type="AtMarket")
+                                       is_buy=isBuy, order_type="AtMarket")
         return order_id
 
-    def close_trade(self, investment, size, stop, limit):
-        order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, is_buy=False, time_in_force="GTC")
-        return order_id
+    # choose to close all inside traade
+    def close_trade(self, trade_id, amount):
+        self.con.close_trade(trade_id, amount, order_type='AtMarket', time_in_force='GTC', rate=None, at_market=None)
 
     def close_all_trade(self):
         pass
@@ -103,8 +103,8 @@ class TradingAPI:
         self.get_account_snapshot().to_csv(os.path.join(OUTPUT_LOC, "account_snapshot.csv"), index=False)
         self.get_orders_snapshot().to_csv(os.path.join(OUTPUT_LOC, "orders_snapshot.csv"), index=False)
         self.get_open_positions().to_csv(os.path.join(OUTPUT_LOC, "open_snapshot.csv"), index=False)
-        self.get_closed_positions.to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
+        self.get_close_positions().to_csv(os.path.join(OUTPUT_LOC, "close_snapshot.csv"), index=False)
         print("CSV generation complete.")
 
     def has_money(self):
-        return True if self.get_account_snapshot()['UsableMargin'] >= 450 else False
+        return True if self.get_account_snapshot()['UsableMargin'] >= 900 else False

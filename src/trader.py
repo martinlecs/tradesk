@@ -1,10 +1,10 @@
-from orders import *
+import random
 
-CLOSE_THRESHOLD = 2
+CLOSE_THRESHOLD = 0.02  # 2%
 PROJECTED_THRESHOLD = 5
 SIZE = 100
-STOP = 0
-LIMIT = 0
+STOP = 10
+LIMIT = 10
 
 class Trader:
 
@@ -18,56 +18,31 @@ class Trader:
         peak_value = maxima if maxima > minima else minima
         projected = abs(series[0] - peak_value) / peak_value * 100
 
-        open_orders = []
+        open_orders = {}
 
         if self.api.has_money:
             if peak_value == maxima and projected >= PROJECTED_THRESHOLD:
                 # buy
-                order = self.api.open_trade(instrument, SIZE, STOP, LIMIT)
-                open_orders.append(Order(order, self.api.get_offer_snapshot()['buy']))
+                order = self.api.open_trade(instrument, SIZE, STOP, LIMIT, True)
+                open_orders[order] = projected
             else:
                 # sell at market value
-                self.api.sell_at_market_price(instrument, SIZE)
+                self.api.open_trade(instrument, SIZE, STOP, LIMIT, False)
 
         if not self.api.get_open_positions().empty:
             df = self.api.get_open_positions()
 
             for _, row in df.iterrows():
+                if row['is_Buy'] and self.isAcceptableBuy(self.api.get_orders_snapshot()['buy'], open_orders[row['tradeId']]):
+                    self.api.close_trade(row['tradeId'], row['amountK'])
 
-                gain = (row['open'] - row['close']) / row['close'] * 100
-                if row['is_Buy'] and gain >= CLOSE_THRESHOLD:
-                    self.api.close_position(instrument, SIZE, STOP, LIMIT) #sell
-                else:
-                    self.api.close_position(instrument, SIZE, STOP, LIMIT) # buy
+    def isAcceptableBuy(self, current_price, projected_price):
+        return True if (abs(projected_price - current_price) / projected_price) > CLOSE_THRESHOLD else False
 
-    def test_decide(self, series):
-        maxima = max(series)
-        minima = min(series)
-        peak_value = maxima if maxima > minima else minima
-        projected = abs(series[0] - peak_value) / peak_value * 100
-
-        PHASE  = ""
-
-        if self.api.has_money:
-            if peak_value == maxima and projected >= PROJECTED_THRESHOLD:
-                # buy
-                PHASE = "open trade"
-            else:
-                # sell at market value
-                PHASE = "sell at market"
-
-        if self.api.get_open_positions().empty:
-            # we got open positions
-            df = self.api.get_open_positions()
-
-            for _, row in df.iterrows():
-                gain = (row['open'] - row['close']) / row['close'] * 100
-                if row['is_Buy'] and gain >= CLOSE_THRESHOLD:
-                    print("")
-                else:
-                    self.api.close_position(instrument, SIZE, STOP, LIMIT) # buy
-
-        return PHASE
 
     def printSeries(self, series):
         print(series)
+
+
+def random_floats(low, high, size):
+    return [random.uniform(low, high) for _ in range(size)]

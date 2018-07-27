@@ -2,14 +2,11 @@ from auxilliaries import *
 import tensorflow as tf
 from tradingapi import TradingAPI
 from trader import Trader
-import random
 import os
 import time
 
 TRADING_INTERVAL = 5
 
-def random_floats(low, high, size):
-    return [random.uniform(low, high) for _ in range(size)]
 
 if __name__ == "__main__":
 
