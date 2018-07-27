@@ -31,7 +31,7 @@ dropout = 0.2
 clip = 5.0
 
 # Number of epochs
-epochs = 20
+epochs = 1
 
 # Sample of points to evaluate model performance
 testing_range = 1000

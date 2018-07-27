@@ -67,7 +67,7 @@ class TradingAPI:
                                        is_buy=True, order_type="AtMarket")
         return order_id
 
-    def close_trade(self, investment, size, stop, limit):
+    def close_position(self, investment, size, stop, limit):
         order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, is_buy=False, time_in_force="GTC")
         return order_id
 

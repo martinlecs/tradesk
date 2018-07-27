@@ -35,7 +35,7 @@ class Trader:
             for _, row in df.iterrows():
 
                 gain = (row['open'] - row['close']) / row['close'] * 100
-                if row['is_Buy'] and gain >= CLOSE_THRESHOLD:
+                if row['isBuy'] and gain >= CLOSE_THRESHOLD:
                     self.api.close_position(instrument, SIZE, STOP, LIMIT) #sell
                 else:
                     self.api.close_position(instrument, SIZE, STOP, LIMIT) # buy
