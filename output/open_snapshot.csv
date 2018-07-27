@@ -1,2 +1,2 @@
 accountId,accountName,amountK,close,com,currency,currencyPoint,grossPL,isBuy,isDisabled,isTotal,limit,open,ratePrecision,roll,stop,stopMove,t,time,tradeId,usedMargin,valueDate,visiblePL
-,,0,0,0,,0,0,False,False,True,0,0,0,0,0,0,1,,,0,,0
+,,406,0,0,EUR/USD,0,-96.49557,False,False,True,0,0,0,0,0,0,1,,,0,,-8.2

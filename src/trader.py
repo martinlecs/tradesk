@@ -39,7 +39,6 @@ class Trader:
     def isAcceptableBuy(self, current_price, projected_price):
         return True if (abs(projected_price - current_price) / projected_price) > CLOSE_THRESHOLD else False
 
-
     def printSeries(self, series):
         print(series)
 

@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
         print (finish_time - start_time)
 
-        time.sleep(300 - (finish_time - start_time))
+        # time.sleep(300 - (finish_time - start_time))
 
         previous_data = get_mid_prices((api.get_historical_data('EUR/USD', 'm5', number=sequence_size)))
         preds = (get_predictions(previous_data))

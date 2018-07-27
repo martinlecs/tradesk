@@ -71,6 +71,7 @@ class TradingAPI:
     def close_trade(self, trade_id, amount):
         self.con.close_trade(trade_id, amount, order_type='AtMarket', time_in_force='GTC', rate=None, at_market=None)
 
+
     def close_all_trade(self):
         pass
 
