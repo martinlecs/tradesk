@@ -89,6 +89,9 @@ class TradingAPI:
     def get_open_positions(self):
         return self.con.get_open_positions()
 
+    def get_offer_snapshot(self):
+        return self.con.get_offers()
+
     def shutdown(self):
         self.con.close()
 
