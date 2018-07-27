@@ -1,2 +1,2 @@
 accountId,accountName,balance,dayPL,equity,grossPL,hedging,isTotal,mc,mcDate,ratePrecision,t,usableMargin,usableMargin3,usableMargin3Perc,usableMarginPerc,usdMr,usdMr3
-,,9891.96,-94.64557,9795.46443,-96.49557,,True,,,0,6,7995.46443,7995.46443,81.62415,81.62415,1800,1800
+,,9891.96,80.29945,9970.40945,78.44945,,True,,,0,6,7720.40945,7720.40945,77.43322,77.43322,2250,2250
