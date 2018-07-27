@@ -13,9 +13,9 @@ def random_floats(low, high, size):
 
 if __name__ == "__main__":
 
-    # ssh = SSHClient()
-    # ssh.load_system_host_keys()
-    # ssh.connect(server, port, username, password)
+    ssh = SSHClient()
+    ssh.load_system_host_keys()
+    ssh.connect(server, port, username, password)
 
     # index = create_client()
 
@@ -55,20 +55,23 @@ if __name__ == "__main__":
 
         print (finish_time - start_time)
 
-        #time.sleep(5 - (finish_time - start_time))
+        time.sleep(300 - (finish_time - start_time))
 
         previous_data = get_mid_prices((api.get_historical_data('EUR/USD', 'm5', number=sequence_size)))
         preds = (get_predictions(previous_data))
 
-        tr.decide('EUR/USD', preds)
+        # tr.decide('EUR/USD', preds)
 
         output_to_csv(preds, time.time())
         api.batch_generate_csv()
 
-        #scp bash function in python
-        # with SCPClient(ssh.get_transport()) as scp:
-        #     scp.put(csv_file_name, put_address)
-        # print ('CSV HAS SENT YO!!!!')
+        sending_directory = os.listdir(csv_directory)
+
+        # scp bash function in python
+        with SCPClient(ssh.get_transport()) as scp:
+        	for file in range(len(sending_directory)):
+        		scp.put(str(csv_directory + sending_directory[file]), put_address)
+        print ('CSV HAS SENT YO!!!!')
 
         # save_data(predictions, testing_losses, x_axis_values)
 

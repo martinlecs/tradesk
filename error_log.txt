@@ -1,3 +1,17 @@
 |ERROR|2018-07-26 10:51:57,856|Error in get_candles: Illegal param. number: 11000
 |ERROR|2018-07-26 10:54:05,036|Error in get_candles: Illegal param. number: 11000
 |ERROR|2018-07-26 20:33:02,279|Error in get_candles: Illegal param. number: 10000
+|ERROR|2018-07-27 09:16:42,784|Server reports an error: {'executed': False, 'error': '{"type":4,"sessionId":"AUDMINIDEMO_6C87933DE102C90CE053E12B3C0AFA19_0726201823115329941","requestId":"Request-3197499","text":" insufficient margin on account: 5562345.\\n","code":20113,"stack":""}'}.
+|ERROR|2018-07-27 09:16:42,789|URL: https://api-demo.fxcm.com:443/trading/open_trade
+|ERROR|2018-07-27 09:16:42,790|Headers: {'User-Agent': 'request', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'Bearer l_85Q997DCky8YcTAABCdd890e914089c80d57cb19389472c816e8d89967', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '142'}
+|ERROR|2018-07-27 09:16:42,790|Params: {'account_id': 5562345, 'symbol': 'EUR/USD', 'is_buy': 'false', 'rate': 5562345.0, 'amount': 100, 'at_market': 0.0, 'order_type': 'AtMarket', 'time_in_force': 'FOK', 'limit': None, 'is_in_pips': 'true'}
+|ERROR|2018-07-27 09:16:42,790|Bearer token: Bearer l_85Q997DCky8YcTAABCdd890e914089c80d57cb19389472c816e8d89967
+|ERROR|2018-07-27 09:16:42,790|Connection status: established
+|ERROR|2018-07-27 09:16:42,790|Socket session id: l_85Q997DCky8YcTAABC
+|ERROR|2018-07-27 09:18:36,332|Server reports an error: {'executed': False, 'error': '{"type":4,"sessionId":"AUDMINIDEMO_6C8848ECEBAAC90EE053E12B3C0ADCA3_0726201823175290249","requestId":"Request-3197618","text":" insufficient margin on account: 5562345.\\n","code":20113,"stack":""}'}.
+|ERROR|2018-07-27 09:18:36,332|URL: https://api-demo.fxcm.com:443/trading/open_trade
+|ERROR|2018-07-27 09:18:36,332|Headers: {'User-Agent': 'request', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'Bearer xPyTy5nkFrKGlqO9AABDdd890e914089c80d57cb19389472c816e8d89967', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '142'}
+|ERROR|2018-07-27 09:18:36,332|Params: {'account_id': 5562345, 'symbol': 'EUR/USD', 'is_buy': 'false', 'rate': 5562345.0, 'amount': 100, 'at_market': 0.0, 'order_type': 'AtMarket', 'time_in_force': 'FOK', 'limit': None, 'is_in_pips': 'true'}
+|ERROR|2018-07-27 09:18:36,332|Bearer token: Bearer xPyTy5nkFrKGlqO9AABDdd890e914089c80d57cb19389472c816e8d89967
+|ERROR|2018-07-27 09:18:36,332|Connection status: established
+|ERROR|2018-07-27 09:18:36,332|Socket session id: xPyTy5nkFrKGlqO9AABD

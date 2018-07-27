@@ -31,7 +31,7 @@ dropout = 0.2
 clip = 5.0
 
 # Number of epochs
-epochs = 1
+epochs = 20
 
 # Sample of points to evaluate model performance
 testing_range = 1000
@@ -45,10 +45,14 @@ model_directory_path = 'Model'
 # File name of csv containing predictions
 csv_file_name = '/home/bennydai/PythonThingo/output/predictions.csv'
 
+# Directory of where everything is connected
+
+csv_directory = '/home/bennydai/PythonThingo/output/'
+
 index_directory = '/home/bennydai/Applications/predictions.csv'
 
 # Remote Computer Directory
-put_address = '/Users/lindsaypage/Desktop/predictions.csv'
+put_address = '/Users/lindsaypage/Desktop/SGT_SPLUNK/'
 
 # SSH details
 server = '172.20.10.9'
@@ -58,4 +62,3 @@ port = 22
 username = 'lindsaypage'
 
 password = 'l16220913'
-
