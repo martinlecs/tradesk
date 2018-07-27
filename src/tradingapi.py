@@ -62,8 +62,8 @@ class TradingAPI:
     def sell_at_market_price(self, investment, size):
         return self.con.create_market_sell_order(investment, size)
 
-    def open_trade(self, investment, size, stop, limit, isBuy):
-        order_id = self.con.open_trade(investment, amount=size, stop=stop, limit=limit, time_in_force="GTC",
+    def open_trade(self, investment, size, stop, isBuy):
+        order_id = self.con.open_trade(investment, amount=size, stop=stop, time_in_force="GTC",
                                        is_buy=isBuy, order_type="AtMarket")
         return order_id
 

@@ -23,11 +23,11 @@ class Trader:
         if self.api.has_money:
             if peak_value == maxima and projected >= PROJECTED_THRESHOLD:
                 # buy
-                order = self.api.open_trade(instrument, SIZE, STOP, LIMIT, True)
+                order = self.api.open_trade(instrument, SIZE, STOP, True)
                 open_orders[order] = projected
             else:
                 # sell at market value
-                self.api.open_trade(instrument, SIZE, -STOP, LIMIT, False)
+                self.api.open_trade(instrument, SIZE, STOP, False)
 
         if not self.api.get_open_positions().empty:
             df = self.api.get_open_positions()
